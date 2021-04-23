@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+.vs/overlay/v16/.suo
+*.db
+*.db-shm
+*.db-wal
+*.opendb
+*.ipch
+*.testlog
+*.manifest
+*.iobj
+*.pdb
+*.ipdb
+*.log
+*.tlog
+*.recipe
