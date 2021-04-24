@@ -16,7 +16,7 @@ DWORD WINAPI overlay_execute(void* parameter) {
 	auto& process = dx_process::instance();
 	auto& gui = dx_gui::instance();
 
-	if (!overlay.create_overlay(L"Valve001"))
+	if (!overlay.create_overlay(L"Notepad"))
 		return 0;
 
 	MSG message = { };
@@ -44,10 +44,10 @@ DWORD WINAPI overlay_execute(void* parameter) {
 int main(int argc, char* argv[]) {
 	auto& process = dx_process::instance();
 
-	while (!(m_window = FindWindowW(L"Valve001", nullptr)))
+	while (!(m_window = FindWindowW(nullptr, L"Untitled - Notepad")))
 		Sleep(1000);
 
-	const auto process_array = dx_process::QueryProcessArray(L"csgo.exe");
+	const auto process_array = dx_process::QueryProcessArray(L"notepad.exe");
 
 	if (process_array.empty())
 		return 0;

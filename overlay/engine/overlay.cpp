@@ -69,9 +69,6 @@ bool dx_overlay::begin() {
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::Begin("");
-	ImGui::End();
-
 	return true;
 }
 
@@ -163,12 +160,6 @@ bool dx_overlay::direct_create() {
 		font_config.PixelSnapH = true;
 
 		auto& io = ImGui::GetIO();
-
-		long style = GetWindowLong(m_overlay_window, GWL_EXSTYLE);
-
-		style &= ~WS_EX_LAYERED;
-		SetWindowLong(m_overlay_window, GWL_EXSTYLE, style);
-		SetForegroundWindow(m_overlay_window);
 
 		initialized = true;
 	}
