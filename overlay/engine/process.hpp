@@ -15,9 +15,9 @@
 
 #include "../include/singleton.hpp"
 
-std::string ToLower(std::string data);
-std::wstring ToLower(std::wstring data);
-std::wstring ToWide(const std::string& data);
+std::string to_lower(std::string data);
+std::wstring to_lower(std::wstring data);
+std::wstring to_wide(const std::string& data);
 
 using ProcessArray = std::vector< DWORD >;
 
@@ -27,21 +27,21 @@ class dx_process
 	: public Singleton< dx_process >
 {
 public:
-	virtual bool Create(const DWORD process_id);
-	virtual void Destroy();
+	virtual bool create_process(const DWORD process_id);
+	virtual void destroy_process();
 
 public:
-	virtual bool ReadMemory(const std::uintptr_t location, void* data, const std::size_t size);
-	virtual bool WriteMemory(const std::uintptr_t location, const void* data, const std::size_t size);
+	virtual bool read_memory(const std::uintptr_t location, void* data, const std::size_t size);
+	virtual bool write_memory(const std::uintptr_t location, const void* data, const std::size_t size);
 
-	virtual std::uintptr_t VirtualAlloc(const std::uintptr_t location, const std::size_t size, const DWORD mode, const DWORD protection);
-	virtual bool VirtualProtect(const std::uintptr_t location, const std::size_t size, const DWORD protection, DWORD* previous);
+	virtual std::uintptr_t virtual_alloc(const std::uintptr_t location, const std::size_t size, const DWORD mode, const DWORD protection);
+	virtual bool virtual_protect(const std::uintptr_t location, const std::size_t size, const DWORD protection, DWORD* previous);
 
 public:
 	template< typename T, typename LocationT >
 	bool Read(LocationT location, T* data)
 	{
-		return ReadMemory((std::uintptr_t)(location), (LPVOID)(data), sizeof(T));
+		return read_memory((std::uintptr_t)(location), (LPVOID)(data), sizeof(T));
 	}
 
 	template< typename T, typename LocationT >
@@ -55,17 +55,17 @@ public:
 	template<typename T, typename LocationT >
 	bool Write(LocationT location, T data)
 	{
-		return WriteMemory((std::uintptr_t)(location), (const void*)data, sizeof(T));
+		return write_memory((std::uintptr_t)(location), (const void*)data, sizeof(T));
 	}
 
 public:
-	virtual std::wstring GetBaseName();
-	virtual std::uintptr_t GetImage(const std::wstring& name = L"");
+	virtual std::wstring get_base_name();
+	virtual std::uintptr_t get_image(const std::wstring& name = L"");
 
-	virtual HANDLE GetProcess();
+	virtual HANDLE get_process();
 
 public:
-	static ProcessArray QueryProcessArray(const std::wstring& name);
+	static ProcessArray query_process_array(const std::wstring& name);
 
 private:
 	DWORD m_process_id = 0;

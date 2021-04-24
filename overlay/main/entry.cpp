@@ -47,12 +47,12 @@ int main(int argc, char* argv[]) {
 	while (!(m_window = FindWindowW(nullptr, L"Untitled - Notepad")))
 		Sleep(1000);
 
-	const auto process_array = dx_process::QueryProcessArray(L"notepad.exe");
+	const auto process_array = dx_process::query_process_array(L"notepad.exe");
 
 	if (process_array.empty())
 		return 0;
 
-	if (!process.Create(process_array[0]))
+	if (!process.create_process(process_array[0]))
 		return 0;
 
 	CreateThread(nullptr, 0, &overlay_execute, nullptr, 0, nullptr);
